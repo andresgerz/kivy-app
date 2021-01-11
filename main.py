@@ -1,86 +1,155 @@
-from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen
 
 from kivymd.icon_definitions import md_icons
 from kivymd.app import MDApp
-from kivymd.uix.list import OneLineIconListItem
+from kivymd.uix.list import TwoLineAvatarListItem
+from kivymd.uix.list import ImageLeftWidget
 
 
-KV = '''
+""" 
+images_obj = {
+  "pizza 1": "./images/pizza1.jpeg",
+  "pizza 2": "./images/pizza2.jpeg",
+  "pizza 3": "./images/pizza3.jpeg",
+  "pizza 4": "./images/pizza4.jpeg",
+  "pizza 5": "./images/pizza5.jpeg",
+  "pizza 6": "./images/pizza6.jpeg",
+  "pizza 7": "./images/pizza7.jpeg",
+  "pizza 8": "./images/pizza8.jpeg",
+}
+ """
 
-<MyTile@SmartTileWithLabel>
-    size_hint_y: "1200"
-    height: "500dp"
+images_arr = [
+    {
+        "Pizza": "Verdura",
+        "Ingredientes": "Muzzarella, verduras, salsa",
+        "Image": "./images/pizza1.jpeg"
+    },
+    {
+        "Pizza": "Primavera",
+        "Ingredientes": "Muzzarella, huevo, salsa",
+        "Image": "./images/pizza2.jpeg"
+    },
+    {
+        "Pizza": "Pollo",
+        "Ingredientes": "Muzzarella, pollo, salsa",
+        "Image": "./images/pizza3.jpeg"
+    },
+    {
+        "Pizza": "Fugazzetta",
+        "Ingredientes": "Muzzarella, fugazzeta",
+        "Image": "./images/pizza4.jpeg"
+    },
+    {
+        "Pizza": "Muzzarella",
+        "Ingredientes": "Muzzarella",
+        "Image": "./images/pizza5.jpeg"
+    },
+    {
+        "Pizza": "Anchoas",
+        "Ingredientes": "Muzzarella, Anchoas",
+        "Image": "./images/pizza6.jpeg"
+    },
+    {
+        "Pizza": "Calabresa",
+        "Ingredientes": "Muzzarella, salamin",
+        "Image": "./images/pizza7.jpeg"
+    },
+    {
+        "Pizza": "Roquefort",
+        "Ingredientes": "Muzzarella, roquefort",
+        "Image": "./images/pizza8.jpeg"
+    }
+]
 
-GridLayout:
-    rows: 2
-    adaptive_height: True
+
+
+Builder.load_string(
+    '''
+#:import images_path kivymd.images_path
+
+
+<CustomTwoLineAvatarListItem>:
+
+    ImageLeftWidget:
+        source: root.source
+
+
+<PreviousMDIcons>:
 
     MDBoxLayout:
-        adaptive_height: True
+        orientation: 'vertical'
+        spacing: dp(50)
+        padding: dp(60)
 
-        MDIconButton:
-            icon: 'magnify'
+        MDBoxLayout:
+            adaptive_height: True
 
-        MDTextField:
-            id: search_field
-            hint_text: 'Search icon'
-            on_text: root.set_list_md_icons(self.text, True)
+            MDIconButton:
+                icon: 'magnify'
 
+            MDTextField:
+                id: search_field
+                hint_text: 'Search Pizza'
+                on_text: root.set_list_md_icons(self.text, True)
 
-    ScrollView:
+        RecycleView:
+            id: rv
+            key_viewclass: 'viewclass'
+            key_size: 'height'
 
-        GridLayout:
-            cols: 3
-            adaptive_width: True
-            padding: dp(4), dp(4)
-            spacing: dp(4)
-
-            MyTile:
-                source: "./images/pizza.jpeg"
-                text: "[size=26]Pizza 1[/size]"
-
-            MyTile:
-                source: "./images/pizza2.jpeg"
-                text: "[size=26]Pizza 2[/size]"
-                tile_text_color: app.theme_cls.accent_color
-
-            MyTile:
-                source: "./images/pizza3.jpeg"
-                text: "[size=26]Pizza 3[/size]"
-                tile_text_color: app.theme_cls.accent_color
-
-            MyTile:
-                source: "./images/pizza4.jpeg"
-                text: "[size=26]Pizza 4[/size]"
-                tile_text_color: app.theme_cls.accent_color
-
-            MyTile:
-                source: "./images/pizza5.jpeg"
-                text: "[size=26]Pizza 5[/size]"
-                tile_text_color: app.theme_cls.accent_color
-
-            MyTile:
-                source: "./images/pizza6.jpeg"
-                text: "[size=26]Pizza 6[/size]"
-                tile_text_color: app.theme_cls.accent_color
-
-            MyTile:
-                source: "./images/pizza7.jpeg"
-                text: "[size=26]Pizza 7[/size]"
-                tile_text_color: app.theme_cls.accent_color
-
-            MyTile:
-                source: "./images/pizza8.jpeg"
-                text: "[size=26]Pizza 8[/size]"
-                tile_text_color: app.theme_cls.accent_color                
+            RecycleBoxLayout:
+                padding: dp(10)
+                default_size: None, dp(82)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
 '''
+)
+
+
+class CustomTwoLineAvatarListItem(TwoLineAvatarListItem):
+    source = StringProperty()
+
+
+class PreviousMDIcons(Screen):
+
+    def set_list_md_icons(self, text="", search=False):
+        '''Builds a list of icons for the screen MDIcons.'''
+
+        def add_icon_item(image_obj):
+            self.ids.rv.data.append(
+                {
+                    "viewclass": "CustomTwoLineAvatarListItem",
+                    "text": image_obj["Pizza"],
+                    "source": image_obj["Image"],
+                    "secondary_text": "Ingredientes: " + image_obj["Ingredientes"],
+                    "callback": lambda x: x,
+                }
+            )
+
+        self.ids.rv.data = []
+        for image_obj in images_arr:
+            if search:
+                if text in image_obj["Pizza"]:
+                    add_icon_item(image_obj)
+            else:
+                add_icon_item(image_obj)
+
 
 class MainApp(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.screen = PreviousMDIcons()
+
     def build(self):
-        return Builder.load_string(KV)
+        return self.screen
+
+    def on_start(self):
+        self.screen.set_list_md_icons()
 
 
 MainApp().run()
