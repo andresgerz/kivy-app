@@ -1,0 +1,3 @@
+title=search
+author=andresgerz
+orientation=portrait

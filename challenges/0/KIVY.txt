@@ -1,0 +1,39 @@
+kivyMD necesita de kivy, aconsejable seguir orden. 
+
+ kivy
+ 
+1 https://www.techwithtim.net/tutorials/kivy-tutorial/
+
+2 https://realpython.com/mobile-app-kivy-python/
+
+enfasis despues de seguir los tutoriales 
+	> https://kivy.org/doc/stable/api-kivy.uix.recycleview.html 
+	
+	
+3 doc oficial > https://kivy.org/doc/stable/	
+ 	github > https://github.com/kivy/kivy 
+ 
+ 
+ kivyMD
+ 
+
+doc oficial > https://kivymd.readthedocs.io/en/latest/
+ 	      https://github.com/kivymd/KivyMD/wiki
+ 	      
+ check this ! 
+ 
+>implementacion de recycleview en kivymd (MVC)
+https://kivymd.readthedocs.io/en/latest/themes/icon-definitions/
+ 
+ FINAL 
+ 
+realizar un buscador de imagenes que tenga vista en miniaturas, 
+utilizando recycleview y kivyMD
+
+ 	      
+
+
+ 
+
+
+

@@ -1,0 +1,44 @@
+IMPORTANTE !. > PEP 8 -- Style Guide for Python Code (no soy exigente con esto, pero tenerlo en cuenta.)
+
+Desarrollar una clase Navigation Drawer (kivymd)
+
+Esta clase a desarrollar tendrá que cumplir con lo siguiente. 
+
+Al ser instanciada recibirá como parámetro x cantidad de argumentos (utilizar **kwargs)
+
+todo el contenido "estático" tiene que ser adquirido  de un archivo "drawer_spanish.json",. Entonces el bonton que dirá "salir" lo podemos traducir facimente ;) )
+ 
+ "|" lo utilizo para indicar condicion or 
+ "&" lo utilizo para indicar condicion and 
+"..." indica cantidad indefinida.
+"*" argumento o key 
+
+dictionary 
+
+ 'profile_picture' : url de una imagen en carpeta, STRING
+ 'button_add_pic' : Boolean si es true , show button
+ 
+data input 
+
+	head =
+		{'profile_picture',
+		'button_add_pic', | 'button_change_pic',
+		'person_name',
+		'user_name',
+		'button_edit_profile'},
+	
+	body = [{'icon_A', 'text_A', sub:{'icon_sub_1', 'text_sub_1', 'icon_button_1' }},	
+	        {'icon_B' ,'text_B', sub:{'icon_sub_1', 'text_sub_1'} } ... ]
+			
+
+		
+	end = 
+		{'button_exit'}
+		
+
+
+			
+		
+	
+
+
