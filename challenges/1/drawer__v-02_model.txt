@@ -1,0 +1,77 @@
+--------------------------------------------INCIO A APLICAR EN GENERAL-----------------------------------------------------------
+1. > PEP 8 -- Style Guide for Python Code (no soy exigente con esto, pero tenerlo en cuenta.)
+2. > si se utiliza codigo estatico de kivy crear archivo contenido.kv 
+(mi anotación, finalizar para el 21 de enero)
+3. > Todo el contenido "estático" tiene que ser adquirido  de un archivo "nombre_modulo_spanish.json",. Entonces el bonton que dirá "salir" lo   podemos traducirlo facimente ;) )   
+ 
+"|" lo utilizo para indicar  "or"  
+"&" lo utilizo para indicar  "and" 
+"..." indica cantidad indefinida.
+"*" argumento o key obligatoriamente necesario o utilizado
+
+-------------------------------------------- FIN A APLICAR EN GENERAL-----------------------------------------------------------
+
+> Desarrollar una clase partiendo de la clase Navigation Drawer (kivymd)
+
+> Por el momento no es necesario aplicar el item 3 (el de arriba), voy a ver si exite una libreria o metodo practico para hacer esto. 
+
+> crear metodos para actualizar head, body,
+
+
+Definiciones de diccionario:
+
+ 'profile_picture' : url de una imagen en carpeta, STRING
+ 'button_add_pic' : Boolean si es true, show button
+ 'person_name': Text, len max (25).
+ 'user_name': Text, len max (15).
+ 'button_edit_profile' : Boolean.
+ 'icon_x' : text indica nombre icono kivyMD (tamaño a determinar)
+ 'icon_sub_x' : text indica nombre icono kivyMD (tamaño a determinar)
+ 'text_x': text len max (15), size_font a determinar.
+ 'text_sub_x': text len max (15), size_font a determinar.
+ 
+Drawer_entity_content = 
+
+	*head = {*'profile_picture':,
+	         *'button_add_pic':,
+	         *'person_name':,
+	         *'user_name':,
+	         *'button_edit_profile':}
+		
+	*body = [{'icon_A':,
+	         *'text_A':,
+	          'sub':[{'icon_sub_1':,
+	                  *'text_sub_1':,
+	                  'icon_button_1':},
+	                   ...]},
+	                   	
+	        {'icon_B':, 
+	        *'text_B':, 
+	         'sub':[{'icon_sub_1':,
+	              *'text_sub_1':},
+	               ...]},
+	        ... ]
+	
+	*end = {'log_out'}		
+
+
+			
+> El Drawer Navigation que queremos crear seria algo similar al que utiliza kivymd en su pagina de documentacion. https://kivymd.readthedocs.io, 
+  claro solo que esta si se pueda ocultar.
+  
+> El contenido del body, mostrar en una lista utilizando recycleview, utilizar Expansion Panel para cada item del root body . 
+  Buscamos crear una vista de arbol o similiar.
+
+>
+
+ 
+
+ 
+
+  
+
+
+		
+	
+
+
