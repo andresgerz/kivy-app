@@ -7,7 +7,6 @@
             icon: root.icon2
     
 <Content>:
-    adaptive_height: True    
 
     RecycleView:
         id: rv
@@ -22,14 +21,15 @@
             height: self.minimum_height
             orientation: 'vertical'
 
+
 <ContentNavigationDrawer>:
     orientation: "vertical"
     padding: "8dp"
     spacing: "8dp"
 
     MDGridLayout:
+        adaptive_height: True    
         cols: 2
-        adaptive_height: True
 
         RelativeLayout:
             Image:
@@ -37,7 +37,7 @@
                 size_hint: None, None
                 size: "100dp", "100dp"
                 source: "images/fillMurray100x100.jpg"
-                pos: 0,0
+                pos: 0, 0
                 
             MDFloatingActionButton:
                 id:open_file
@@ -83,15 +83,13 @@
                 font_style: "Caption"
                 size_hint_y: None
                 height: self.texture_size[1]
-    
-    MDBoxLayout:
-        ScrollView:
-            DrawerList:
-                id: md_list
 
     MDGridLayout:
+        cols: 1
+        id: md_list
+        
+    MDGridLayout:
         rows: 2
-        adaptive_height: True
 
         MDBoxLayout:
             adaptive_height: True

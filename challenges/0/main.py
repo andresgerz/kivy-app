@@ -7,64 +7,7 @@ from kivymd.app import MDApp
 from kivymd.uix.list import TwoLineAvatarListItem
 from kivymd.uix.list import ImageLeftWidget
 
-
-""" 
-images_obj = {
-  "pizza 1": "./images/pizza1.jpeg",
-  "pizza 2": "./images/pizza2.jpeg",
-  "pizza 3": "./images/pizza3.jpeg",
-  "pizza 4": "./images/pizza4.jpeg",
-  "pizza 5": "./images/pizza5.jpeg",
-  "pizza 6": "./images/pizza6.jpeg",
-  "pizza 7": "./images/pizza7.jpeg",
-  "pizza 8": "./images/pizza8.jpeg",
-}
- """
-
-images_arr = [
-    {
-        "Pizza": "Verdura",
-        "Ingredientes": "Muzzarella, verduras, salsa",
-        "Image": "./images/pizza1.jpeg"
-    },
-    {
-        "Pizza": "Primavera",
-        "Ingredientes": "Muzzarella, huevo, salsa",
-        "Image": "./images/pizza2.jpeg"
-    },
-    {
-        "Pizza": "Pollo",
-        "Ingredientes": "Muzzarella, pollo, salsa",
-        "Image": "./images/pizza3.jpeg"
-    },
-    {
-        "Pizza": "Fugazzetta",
-        "Ingredientes": "Muzzarella, fugazzeta",
-        "Image": "./images/pizza4.jpeg"
-    },
-    {
-        "Pizza": "Muzzarella",
-        "Ingredientes": "Muzzarella",
-        "Image": "./images/pizza5.jpeg"
-    },
-    {
-        "Pizza": "Anchoas",
-        "Ingredientes": "Muzzarella, Anchoas",
-        "Image": "./images/pizza6.jpeg"
-    },
-    {
-        "Pizza": "Calabresa",
-        "Ingredientes": "Muzzarella, salamin",
-        "Image": "./images/pizza7.jpeg"
-    },
-    {
-        "Pizza": "Roquefort",
-        "Ingredientes": "Muzzarella, roquefort",
-        "Image": "./images/pizza8.jpeg"
-    }
-]
-
-
+from data import data_arr
 
 Builder.load_string(
     '''
@@ -110,10 +53,8 @@ Builder.load_string(
 '''
 )
 
-
 class CustomTwoLineAvatarListItem(TwoLineAvatarListItem):
     source = StringProperty()
-
 
 class PreviousMDIcons(Screen):
 
@@ -132,13 +73,12 @@ class PreviousMDIcons(Screen):
             )
 
         self.ids.rv.data = []
-        for image_obj in images_arr:
+        for image_obj in data_arr:
             if search:
                 if text in image_obj["Pizza"]:
                     add_icon_item(image_obj)
             else:
                 add_icon_item(image_obj)
-
 
 class MainApp(MDApp):
     def __init__(self, **kwargs):
@@ -150,6 +90,5 @@ class MainApp(MDApp):
 
     def on_start(self):
         self.screen.set_list_md_icons()
-
 
 MainApp().run()

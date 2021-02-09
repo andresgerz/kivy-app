@@ -7,37 +7,44 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.screenmanager import Screen
-
+from kivymd import images_path
 from kivymd.app import MDApp
+from kivymd.icon_definitions import md_icons
 from kivymd.theming import ThemableBehavior
-from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.button import MDIconButton
-from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelOneLine
+from kivymd.uix.boxlayout import MDBoxLayout
+
 from kivymd.uix.label import MDLabel
 from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem, MDList, IconLeftWidget
 
-from data import head, body, end
 
-# Dimensiones de pantalla portrait
+from data import head, body, end
+from expansion_panel_custom import ExpansionPanelCustom, MDExpansionPanelOneLine
+
 Config.set('graphics','resizable',0)
 Window.size = (360, 640)
+
 
 class Container(IRightBodyTouch, MDBoxLayout):
     adaptive_width = True
 
+
 class ContentNavigationDrawer(BoxLayout):
     pass
+
 
 class NavigationItem(OneLineAvatarIconListItem):
     icon = StringProperty() 
     icon2 = StringProperty()
+
 
 class Content(MDBoxLayout):
     def __init__(self, item):
         super(Content, self).__init__() 
         self.ids.rv.data = []
 
-        # si no son cadenas vacias '', agrego a la data al recycleview
+        # si no son '', agrego a la data del recycleview,
+      
         if item['sub'] != '':
             for sub_obj in item['sub']:  
                 self.ids.rv.data.append(
@@ -50,24 +57,16 @@ class Content(MDBoxLayout):
                     }
                 )
 
-class DrawerList(ThemableBehavior, MDList):
-    def set_color_item(self, instance_item):
-        """Called when tap on a menu item."""
 
-        # Set the color of the icon and text for the menu item.
-        for item in self.children:
-            if item.text_color == self.theme_cls.primary_color:
-                item.text_color = self.theme_cls.text_color
-                break
-        instance_item.text_color = self.theme_cls.primary_color
-        
 class NavigationDrawer(MDApp):
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
+
     def build(self):
         return Builder.load_file("myfile.kv")
+            
 
     def on_start(self):
         new_doby = list()
@@ -79,12 +78,15 @@ class NavigationDrawer(MDApp):
         for obj in body:
             for key,val in obj.items():
                 if val == None:
-                    obj[key] = ''           
+                    obj[key] = ''
+                    
             new_doby.append(obj)        
+        #print(new_doby)
         
         for new_obj in new_doby:
+
             self.root.ids.content_drawer.ids.md_list.add_widget(
-                MDExpansionPanel(
+                ExpansionPanelCustom(
                     icon=new_obj["icon"],
                     content=Content(new_obj),
                     panel_cls=MDExpansionPanelOneLine(
@@ -94,3 +96,12 @@ class NavigationDrawer(MDApp):
             )  
 
 NavigationDrawer().run()
+
+"""  MDExpansionPanel(
+                icon=new_obj["icon"],
+                content=Content(new_obj),
+                panel_cls=MDExpansionPanelOneLine(
+                    text="[color=6258B1]" + new_obj["text"] + "[/color]",
+                )
+            ) 
+"""
