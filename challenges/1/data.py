@@ -30,7 +30,7 @@ body = [
         ]
     },
     {'icon': None, 'text': 'Subscriptions', 'sub': None},
-    {'icon': './images/50x50.png', 'text': 'Entities', 
+    {'icon': None, 'text': 'Entities', 
     'sub': [
         {'icon': 'language-python', 'text': '@Cyberlink', 'icon_button': 'pen'},
         {'icon': 'language-python', 'text': '@Cyberlink', 'icon_button': 'pen'}

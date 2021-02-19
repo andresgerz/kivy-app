@@ -2,7 +2,7 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.graphics import Color
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty, StringProperty, ListProperty
+from kivy.properties import ObjectProperty, StringProperty, ListProperty, NumericProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.recycleview import RecycleView
@@ -14,7 +14,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.button import MDIconButton
 from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelOneLine
 from kivymd.uix.label import MDLabel
-from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem, MDList, IconLeftWidget
+from kivymd.uix.list import ILeftBodyTouch, IRightBodyTouch, OneLineAvatarIconListItem, MDList, IconLeftWidget
 
 from data import head, body, end
 
@@ -60,7 +60,32 @@ class DrawerList(ThemableBehavior, MDList):
                 item.text_color = self.theme_cls.text_color
                 break
         instance_item.text_color = self.theme_cls.primary_color
+
+""" Clase para cuando no hay ninguna imagen, está clase en vez de heredar del widget IRightBodyTouch hereda de ILeftBody Touch.
+
+"""
+
+class MDExpansionChevronRight(ILeftBodyTouch, MDIconButton):
+    """Chevron icon on the right panel."""
+
+    _angle = NumericProperty(0)
+
+class MDExpansionPanelCustom(MDExpansionPanel):
+   
+    def __init__(self, data, image, **kwargs):
+        super(MDExpansionPanelCustom, self).__init__(**kwargs)
+        self.at_least_an_image=image
         
+        """ si no hay ninguna imagen, borra el widget ImageLeftWidget de la componente MDExpansionPanel y agrega el widget MDExpansionChevronRight() a la izquierda.
+        
+        """
+        if not self.at_least_an_image:
+            for child in self.panel_cls.children[0:1]:
+                self.panel_cls.remove_widget(child)
+            
+            self.chevron = MDExpansionChevronRight()
+            self.panel_cls.add_widget(self.chevron)
+            
 class NavigationDrawer(MDApp):
     
     def __init__(self, **kwargs):
@@ -76,15 +101,22 @@ class NavigationDrawer(MDApp):
         None is not allowed for MDExpansionPanel.icon 
 
         """
+        at_least_an_image = False
+
         for obj in body:
             for key,val in obj.items():
                 if val == None:
-                    obj[key] = ''           
+                    obj[key] = ''
+            if obj['icon'] != '':           
+                at_least_an_image = True
+
             new_doby.append(obj)        
-        
+
         for new_obj in new_doby:
             self.root.ids.content_drawer.ids.md_list.add_widget(
-                MDExpansionPanel(
+                MDExpansionPanelCustom(
+                    image=at_least_an_image,
+                    data=new_obj,
                     icon=new_obj["icon"],
                     content=Content(new_obj),
                     panel_cls=MDExpansionPanelOneLine(

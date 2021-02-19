@@ -7,7 +7,6 @@ head = {
     'new_msg': 2
     }
 
-
 body = [
     {'icon': None, 'text': 'Notifications', 'sub': [
         {'icon': 'language-python', 'text': '@Cyberlink', 'icon_button': 'pen'},
@@ -31,7 +30,7 @@ body = [
         ]
     },
     {'icon': None, 'text': 'Subscriptions', 'sub': None},
-    {'icon': './images/50x50.png', 'text': 'Entities', 
+    {'icon': None, 'text': 'Entities', 
     'sub': [
         {'icon': 'language-python', 'text': '@Cyberlink', 'icon_button': 'pen'},
         {'icon': 'language-python', 'text': '@Cyberlink', 'icon_button': 'pen'}
@@ -94,6 +93,5 @@ body = [
         ]   
     }
     ]
-
 
 end = {'light_mode': True}

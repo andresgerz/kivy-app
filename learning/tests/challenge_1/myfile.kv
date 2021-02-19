@@ -5,13 +5,13 @@
     Container:
         MDIconButton:
             icon: root.icon2
-    
-<Content>:
 
+<Content>:
+    adaptive_height: True    
+    id:test
     RecycleView:
         id: rv
         key_viewclass: 'viewclass'
-        key_size: 'height'
 
         RecycleBoxLayout:
             padding: dp(10)
@@ -20,13 +20,11 @@
             size_hint_y: None
             height: self.minimum_height
             orientation: 'vertical'
-
+            text_font: "8dp"
 
 <ContentNavigationDrawer>:
     orientation: "vertical"
-    padding: "8dp"
-    spacing: "8dp"
-
+  
     MDGridLayout:
         adaptive_height: True    
         cols: 2
@@ -38,7 +36,7 @@
                 size: "100dp", "100dp"
                 source: "images/fillMurray100x100.jpg"
                 pos: 0, 0
-                
+
             MDFloatingActionButton:
                 id:open_file
                 pos: 69, 0
@@ -84,11 +82,13 @@
                 size_hint_y: None
                 height: self.texture_size[1]
 
-    MDGridLayout:
+    MDGridLayout:    
         cols: 1
-        id: md_list
+        DrawerList:
+            id: md_list
         
     MDGridLayout:
+        adaptive_height: True    
         rows: 2
 
         MDBoxLayout:
