@@ -7,11 +7,11 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.screenmanager import Screen
-
+from kivy.clock import Clock
+from kivymd.uix.button import MDIconButton
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.button import MDIconButton
 from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelOneLine
 from kivymd.uix.label import MDLabel
 from kivymd.uix.list import ILeftBodyTouch, IRightBodyTouch, OneLineAvatarIconListItem, MDList, IconLeftWidget
@@ -66,26 +66,26 @@ class DrawerList(ThemableBehavior, MDList):
 """
 
 class MDExpansionChevronRight(ILeftBodyTouch, MDIconButton):
-    """Chevron icon on the right panel."""
 
     _angle = NumericProperty(0)
 
-class MDExpansionPanelCustom(MDExpansionPanel):
-   
+class MyExpansionPanel(MDExpansionPanel):
+    
     def __init__(self, data, image, **kwargs):
-        super(MDExpansionPanelCustom, self).__init__(**kwargs)
+        super(MyExpansionPanel, self).__init__(**kwargs)
         self.at_least_an_image=image
-        
+
         """ si no hay ninguna imagen, borra el widget ImageLeftWidget de la componente MDExpansionPanel y agrega el widget MDExpansionChevronRight() a la izquierda.
         
         """
+
         if not self.at_least_an_image:
             for child in self.panel_cls.children[0:1]:
                 self.panel_cls.remove_widget(child)
             
             self.chevron = MDExpansionChevronRight()
             self.panel_cls.add_widget(self.chevron)
-            
+           
 class NavigationDrawer(MDApp):
     
     def __init__(self, **kwargs):
@@ -114,7 +114,7 @@ class NavigationDrawer(MDApp):
 
         for new_obj in new_doby:
             self.root.ids.content_drawer.ids.md_list.add_widget(
-                MDExpansionPanelCustom(
+                MyExpansionPanel(
                     image=at_least_an_image,
                     data=new_obj,
                     icon=new_obj["icon"],

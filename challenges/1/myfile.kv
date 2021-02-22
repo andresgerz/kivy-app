@@ -9,18 +9,23 @@
 <Content>:
     adaptive_height: True    
     id:test
-    RecycleView:
-        id: rv
-        key_viewclass: 'viewclass'
+    
+    ScrollView:
+        size_hint: (1, None) 
+        size: (Window.width, "150dp")
 
-        RecycleBoxLayout:
-            padding: dp(10)
-            default_size: None, dp(48)
-            default_size_hint: 1, None
-            size_hint_y: None
-            height: self.minimum_height
-            orientation: 'vertical'
-            text_font: "8dp"
+        RecycleView:
+            id: rv
+            key_viewclass: 'viewclass'
+
+            RecycleBoxLayout:
+                padding: dp(10)
+                default_size: None, dp(48)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+                text_font: "8dp"
 
 <ContentNavigationDrawer>:
     orientation: "vertical"
@@ -84,9 +89,10 @@
 
     MDGridLayout:    
         cols: 1
+
         DrawerList:
             id: md_list
-        
+            
     MDGridLayout:
         adaptive_height: True    
         rows: 2
